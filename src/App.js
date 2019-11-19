@@ -1,24 +1,25 @@
-import React, { Component } from "react"
-import logo from "./img/logo.svg";
-import "./css/App.css";
-
-import InputComponent from "./InputComponent"
+import React, { Component } from 'react';
+import './css/App.css';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import SignIn from './components/SignIn';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Welcome employee</h1>
-                    <img
-                        src={logo}
-                        className="App-logo"
-                        alt="logo"/>
-                    <InputComponent />
-                </header>
-            </div>
-        )
-    }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <PublicRoute restricted={false} component={Home} path="/" exact />
+          <PublicRoute restricted={true} component={SignIn} path="/signin" exact />
+          <PrivateRoute component={Dashboard} path="/dashboard" exact />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
