@@ -1,5 +1,8 @@
 import React, { Component } from "react"
 import InputField from "./InputField"
+import logo from "../img/logo.svg";
+import "../css/App.css";
+//import Interface from "./lib/Interface"
 
 const URL = "ws://localhost:8080";
 
@@ -36,6 +39,21 @@ class InputComponent extends Component {
 
     submitMessage = messageString => {
         // on submitting the InputComponent form, send the message, add it to the list and reset the input
+        /*let interfaceInstance = Interface.instance();
+        interfaceInstance.request({
+            request: "employee.employeeList",
+                data: {
+                data: messageString
+            }
+        }, function(reply) {
+            console.log("success");
+            console.log(reply);
+        }, function(reply) {
+            console.log("failure");
+            console.log(reply);
+        });*/
+        //this.ws.send(JSON.stringify(message));
+        // on submitting the InputComponent form, send the message, add it to the list and reset the input
         const message = {
             request: "employee.employeeList",
                 data: {
@@ -44,14 +62,21 @@ class InputComponent extends Component {
         };
         this.ws.send(JSON.stringify(message));
         this.addMessage(message);
+        this.addMessage(messageString);
     }
 
     render() {
         return (
-            <div>
-                <InputField
-                    onSubmitMessage={messageString => this.submitMessage(messageString)}
-                />
+            <div className="App">
+                <header className="App-header">
+                    <h1 className="App-title">Welcome employee</h1>
+                    <img
+                        src={logo}
+                        className="App-logo"
+                        alt="logo"/>
+                    <InputField 
+                        onSubmitMessage={messageString => this.submitMessage(messageString)}/>
+                </header>
             </div>
         )
     }
