@@ -25,7 +25,10 @@ class Home extends Component {
             <div>
                 {this.state.isLogin ?
                     <InputComponent />
-                    : <Link to="/signin">Go to sign in page</Link>
+                    : <div>
+                        <h1>You're not logged in. Please sign in to continue...</h1>
+                        <Link to="/signin">Go to sign in page</Link>
+                    </div>
                 }
             </div>
         );
