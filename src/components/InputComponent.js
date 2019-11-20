@@ -7,10 +7,6 @@ import "../css/App.css";
 const URL = "ws://localhost:8080";
 
 class InputComponent extends Component {
-    state = {
-        messages: [],
-    }
-
     ws = new WebSocket(URL)
 
     componentDidMount() {
@@ -22,7 +18,7 @@ class InputComponent extends Component {
         this.ws.onmessage = evt => {
             // on receiving a message, add it to the list of messages
             const message = JSON.parse(evt.data);
-            this.addMessage(message);
+            console.log(message);
         };
 
         this.ws.onclose = () => {
@@ -33,9 +29,6 @@ class InputComponent extends Component {
             })
         };
     }
-
-    addMessage = message =>
-        this.setState(state => ({ messages: [message, ...state.messages] }));
 
     submitMessage = messageString => {
         // on submitting the InputComponent form, send the message, add it to the list and reset the input
@@ -55,14 +48,12 @@ class InputComponent extends Component {
         //this.ws.send(JSON.stringify(message));
         // on submitting the InputComponent form, send the message, add it to the list and reset the input
         const message = {
-            request: "employee.employeeList",
+            request: "employee.sendAnnualLeaveRequest",
                 data: {
                 data: messageString
             }
         };
         this.ws.send(JSON.stringify(message));
-        this.addMessage(message);
-        this.addMessage(messageString);
     }
 
     render() {

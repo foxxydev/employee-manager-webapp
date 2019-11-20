@@ -7,7 +7,7 @@ class InputField extends Component {
         onSubmitMessage: PropTypes.func.isRequired,
     };
     state = {
-        message: "",
+        email: "",
         startDate: "",
         endDate: "",
         details: ""
@@ -22,7 +22,6 @@ class InputField extends Component {
     }
 
     handleLogout = () => {
-        console.log("handlelogout!");
         logout(this.props);
         this.setState({
             isLogin: false
@@ -36,18 +35,18 @@ class InputField extends Component {
                     action = "."
                     onSubmit = {e => {
                         e.preventDefault();
-                        this.props.onSubmitMessage(this.state.message);
-                        this.setState({ message: "" });
+                        this.props.onSubmitMessage(this.state);
+                        this.setState({ email: "" , startDate: "", endDate: "", details: ""});
                     }}
                 >
                     <input
                         type = "text"
                         placeholder = {"Enter e-mail..."}
-                        value = {this.state.message}
-                        onChange = { e => 
+                        value = {this.state.email}
+                        onChange = { e =>
                             this.setState({
                                 //sent message is:
-                                message: e.target.value
+                                email: e.target.value
                             })}
                     />
                     <br /><br />
@@ -55,10 +54,22 @@ class InputField extends Component {
                     <input
                         type = "date"
                         value = {this.state.startDate}
+                        onChange = { e => 
+                            this.setState({
+                                //sent details are:
+                                 startDate: e.target.value
+                            })
+                        }
                     /> To:
                     <input
                         type = "date"
-                        value = {this.state.startDate}
+                        value = {this.state.endDate}
+                        onChange = { e => 
+                            this.setState({
+                                //sent details are:
+                                 endDate: e.target.value
+                            })
+                        }
                     />
                     <br /><br />
                     <input
@@ -67,9 +78,10 @@ class InputField extends Component {
                         value = {this.state.details}
                         onChange = { e => 
                             this.setState({
-                                //sent message is:
-                                details: e.target.details
-                            })}
+                                //sent details are:
+                                 details: e.target.value
+                            })
+                        }
                     />
                     <br /><br />
                     <input type="submit" value={"Send"} />
